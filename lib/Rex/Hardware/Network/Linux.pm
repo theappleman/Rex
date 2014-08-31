@@ -102,6 +102,7 @@ sub _parse_ifconfig {
 
       $dev->{$cur_dev}->{mac}       = "";
       $dev->{$cur_dev}->{ip}        = "";
+      $dev->{$cur_dev}->{ip6}        = "";
       $dev->{$cur_dev}->{netmask}   = "";
       $dev->{$cur_dev}->{broadcast} = "";
 
@@ -113,6 +114,10 @@ sub _parse_ifconfig {
 
     if ( $line =~ m/inet( addr:| )?(\d+\.\d+\.\d+\.\d+)/ ) {
       $dev->{$cur_dev}->{ip} = $2;
+    }
+
+    if ( $line =~ m/inet6( addr:| )?([0-9a-f:]+)/ ) {
+      $dev->{cur_dev}->{ip6} = $2;
     }
 
     if ( $line =~ m/(netmask |Mask:)(\d+\.\d+\.\d+\.\d+)/ ) {
